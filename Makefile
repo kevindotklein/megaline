@@ -4,8 +4,9 @@ SRCDIR := src
 BUILDDIR := build
 INCDIR := ./raylib/raylib-5.5_win64_mingw-w64/include
 
-CXXFLAGS := -I$(INCDIR) -I$(SRCDIR) -Wall -std=c++17
-LDFLAGS := -L./raylib/raylib-5.5_win64_mingw-w64/lib -lraylib -lopengl32 -lgdi32 -lwinmm
+CXXFLAGS := -I$(INCDIR) -I$(SRCDIR) -Wall -Wextra -std=c++17
+# LDFLAGS := -L./raylib/raylib-5.5_win64_mingw-w64/lib -Wl, -Bdynamic -lraylib -lopengl32 -lgdi32 -lwinmm
+LDFLAGS := -L./raylib/raylib-5.5_win64_mingw-w64/lib -Wl,-Bdynamic -lraylibdll -lopengl32 -lgdi32 -lwinmm
 
 SRC := $(shell find $(SRCDIR) -name '*.cpp')
 OBJ := $(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRC))
