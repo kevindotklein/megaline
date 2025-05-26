@@ -3,20 +3,34 @@ CXX := g++
 SRCDIR := src
 BUILDDIR := build
 INCDIR := ./raylib/raylib-5.5_win64_mingw-w64/include
+LIBDIR := ./raylib/raylib-5.5_win64_mingw-w64/lib
 
 CXXFLAGS := -I$(INCDIR) -I$(SRCDIR) -Wall -Wextra -std=c++17
-# LDFLAGS := -L./raylib/raylib-5.5_win64_mingw-w64/lib -Wl, -Bdynamic -lraylib -lopengl32 -lgdi32 -lwinmm
-LDFLAGS := -L./raylib/raylib-5.5_win64_mingw-w64/lib -Wl,-Bdynamic -lraylibdll -lopengl32 -lgdi32 -lwinmm
+
+# LDFLAGS para linkagem dinâmica (sua regra atual)
+LDFLAGS_SHARED := -L$(LIBDIR) -Wl,-Bdynamic -lraylibdll -lopengl32 -lgdi32 -lwinmm
+
+# LDFLAGS para linkagem estática
+LDFLAGS_STATIC := -L$(LIBDIR) -Wl,-Bstatic -lraylib -lopengl32 -lgdi32 -lwinmm
 
 SRC := $(shell find $(SRCDIR) -name '*.cpp')
 OBJ := $(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRC))
-OUT := megaline.exe
+OUT_SHARED := megaline.exe
+OUT_STATIC := megaline_static.exe
 
-all: $(OUT)
+all: $(OUT_SHARED)
 
-$(OUT): $(OBJ)
-	@echo "[INFO] linking $@"
-	$(CXX) -o $@ $^ $(LDFLAGS)
+shared: $(OUT_SHARED)
+
+static: $(OUT_STATIC)
+
+$(OUT_SHARED): $(OBJ)
+	@echo "[INFO] linking $@ (shared)"
+	$(CXX) -o $@ $^ $(LDFLAGS_SHARED)
+
+$(OUT_STATIC): $(OBJ)
+	@echo "[INFO] linking $@ (static)"
+	$(CXX) -o $@ $^ $(LDFLAGS_STATIC)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(dir $@)
@@ -25,4 +39,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 
 clean:
 	@echo "[INFO] cleaning..."
-	@rm -rf $(BUILDDIR) *.exe
+	@rm -rf $(BUILDDIR) *.exe *_static.exe
