@@ -4,10 +4,17 @@
 
 namespace megaline {
   namespace board {
-    const int defaultXSlices = 35;
-    const int defaultYSlices = 30;
-    const int defaultSpacing = 30;
+    class Grid {
+      private:
+        Vector2 center = (Vector2){GetScreenWidth()/2.f, GetScreenHeight()/2.f};
+        int xSlices = 35;
+        int ySlices = 30;
+        int spacing = 30;
 
-    void drawGrid(Vector2 center, int xSlices, int ySlices, int spacing);
+      public:
+        Grid() = default;
+        void DrawGrid(void);
+        virtual ~Grid() = default;
+    };
   }
 }
