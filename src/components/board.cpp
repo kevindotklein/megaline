@@ -4,7 +4,7 @@ namespace megaline
 {
   namespace board
   {
-    void Grid::DrawGrid() {
+    void Grid::Draw() {
       int xTotalSize = this->xSlices * this->spacing;
       int yTotalSize = this->ySlices * this->spacing;
 

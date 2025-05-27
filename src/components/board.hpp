@@ -13,7 +13,7 @@ namespace megaline {
 
       public:
         Grid() = default;
-        void DrawGrid(void);
+        void Draw(void);
         virtual ~Grid() = default;
     };
   }
