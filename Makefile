@@ -7,10 +7,8 @@ LIBDIR := ./raylib/raylib-5.5_win64_mingw-w64/lib
 
 CXXFLAGS := -I$(INCDIR) -I$(SRCDIR) -Wall -Wextra -std=c++17
 
-# LDFLAGS para linkagem dinâmica (sua regra atual)
 LDFLAGS_SHARED := -L$(LIBDIR) -Wl,-Bdynamic -lraylibdll -lopengl32 -lgdi32 -lwinmm
 
-# LDFLAGS para linkagem estática
 LDFLAGS_STATIC := -L$(LIBDIR) -Wl,-Bstatic -lraylib -lopengl32 -lgdi32 -lwinmm
 
 SRC := $(shell find $(SRCDIR) -name '*.cpp')

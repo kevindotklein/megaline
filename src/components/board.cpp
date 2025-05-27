@@ -13,12 +13,12 @@ namespace megaline
 
       for (int i = 0; i <= xSlices; i++) {
         int x = startX + i * spacing;
-        DrawLine(x, startY, x, startY + yTotalSize, LIGHTGRAY);
+        DrawLine(x, startY, x, startY + yTotalSize, (Color){100, 100, 100, 255});
       }
 
       for (int i = 0; i <= ySlices; i++) {
         int y = startY + i * spacing;
-        DrawLine(startX, y, startX + xTotalSize, y, LIGHTGRAY);
+        DrawLine(startX, y, startX + xTotalSize, y, (Color){100, 100, 100, 255});
       }
     }
   }
