@@ -24,6 +24,7 @@ namespace megaline {
       void SetPlayerDirection(PlayerDirection dir);
       void SetFireOffset(float offset);
       void Fire(std::function<float(float)> func, float time);
+      void SetPosition(Vector2 pos);
       virtual ~Player() = default;
   };
 }
