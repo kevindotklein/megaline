@@ -19,9 +19,9 @@ namespace megaline {
     case megaline::PlayerDirection::RIGHT:
       for (float j = 0.f; j < time; j += megaline::utils::timeStep) {
         DrawLineV((Vector2){(this->position.x + this->size) + j,
-                            this->position.y + func(j)},
+                            (this->position.y + this->fireOffset) - func(j)},
                   (Vector2){(this->position.x + this->size) + j + megaline::utils::timeStep,
-                            this->position.y + func(j+megaline::utils::timeStep)},
+                            (this->position.y + this->fireOffset) - func(j+megaline::utils::timeStep)},
                   megaline::utils::blue);
       }
       break;
