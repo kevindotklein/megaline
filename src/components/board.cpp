@@ -21,6 +21,23 @@ namespace megaline
         DrawLine(startX, y, startX + xTotalSize, y, (Color){100, 100, 100, 255});
       }
     }
+
+    float Grid::GetMinBoundX(void) {
+      return this->minBoundX;
+    }
+
+    float Grid::GetMinBoundY(void) {
+      return this->minBoundY;
+    }
+
+    float Grid::GetMaxBoundX(void) {
+      return this->maxBoundX;
+    }
+
+    float Grid::GetMaxBoundY(void) {
+      return this->maxBoundY;
+    }
+
   }
 
 }

@@ -21,6 +21,9 @@ int main(void) {
   auto grid = new megaline::board::Grid();
   auto player = new megaline::Player();
   auto player2 = new megaline::Player();
+
+  bool firing = false;
+
   while(!WindowShouldClose()) {
 
     BeginDrawing();
@@ -28,17 +31,34 @@ int main(void) {
     ClearBackground(GetColor(0x181818FF));
     grid->Draw();
     player->Draw();
-    player->SetFireOffset(sinf(0 * 5 * DEG2RAD) * 40);
-    player->Fire([](float x){return sinf(x * 5 * DEG2RAD) * 40;}, time);
 
-    player2->SetPosition((Vector2){GetScreenWidth()/2, GetScreenHeight()/2 - 200});
+    player2->SetPosition((Vector2){GetScreenWidth()/2 + 300, GetScreenHeight()/2 - 200});
     player2->SetPlayerDirection(megaline::PlayerDirection::LEFT);
     player2->Draw();
-    player2->SetFireOffset(cosf(0 * 5 * DEG2RAD) * 40);
-    player2->Fire([](float x){return cosf(x * 5 * DEG2RAD) * 40;}, time);
 
+    if(IsKeyPressed(KEY_R) && firing) {
+      firing = false;
+      time = 0.f;
+    }
 
-    time+=1.f;
+    if(IsKeyPressed(KEY_F) && !firing) {
+      firing = true;
+    }
+
+    if(firing) {
+      if(player->GetCLine().x >= grid->GetMaxBoundX()|| player2->GetCLine().x <= grid->GetMinBoundX()) {
+        firing = false;
+        time = 0.f;
+      }
+
+      player->SetFireOffset(sinf(0 * 5 * DEG2RAD) * 40);
+      player->Fire([](float x){return sinf(x * 5 * DEG2RAD) * 40;}, time);
+      player2->SetFireOffset(cosf(0 * 5 * DEG2RAD) * 40);
+      player2->Fire([](float x){return cosf(x * 5 * DEG2RAD) * 40;}, time);
+
+      time+=1.f;
+    }
+
 
     EndDrawing();
   }
